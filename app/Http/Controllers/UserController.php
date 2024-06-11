@@ -14,16 +14,16 @@ class UserController extends Controller
     }
     function store(Request $req){
         // echo "File Uploaded";
-        
+        //learn about validation request
         $req->validate([
-            'photo'=> 'required|mimes:png,jpg,jpeg|max:5000'
-        ]);
+            'photo'=> 'required|mimes:png,jpg,jpeg|max:5000' //add these validtors in validation request 
+        ]); 
         $file = $req->file('photo');
-        $path = $file->store('image','public');
+        $path = $file->store('image','public'); // specify the path where you are storing the image
         User::create([
             'file-name'=> $path
         ]);
-        return redirect('/user')->with('status','User Image Uploaded Successfully');
+        return redirect('/user')->with('status','User Image Uploaded Successfully'); //use route name insted
     }
 
     function destroy($id){
@@ -38,7 +38,7 @@ class UserController extends Controller
     }
     function edit($id){
         $user = User::find($id);
-        return view('file-update',compact('user'));
+        return view('file-update',compact('user')); //use the same view for both edit and add new record 
     }
     function update($id, Request $req){
        $user = User::find($id);
