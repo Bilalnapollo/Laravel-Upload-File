@@ -9,5 +9,5 @@ class User extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $guarded = []; // add fillables in model to make sure eloquent work smoothly 
 }
