@@ -12,17 +12,17 @@
     <link href="
 https://cdn.jsdelivr.net/npm/sweetalert2@11.11.1/dist/sweetalert2.min.css
 " rel="stylesheet">
-    <title>File Upload</title>
+    <title>{{$title}}</title>
 </head>
 
 <body>
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h2 class="text-center mb-2">File Upload</h2>
+                <h2 class="text-center mb-2">{{$title}}</h2>
             </div>
         </div>
-        <form action="{{ url('user-store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{$url}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="col-12">
@@ -32,7 +32,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.11.1/dist/sweetalert2.min.css
                     @enderror
                 </div>
                 <div class="col-12 mt-2">
-                    <input type="submit" class="btn btn-sm btn-primary" value="Upload">
+                    <input type="submit" class="btn btn-sm btn-primary" value={{$val}}>
                 </div>
             </div>
         </form>
@@ -46,17 +46,17 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.11.1/dist/sweetalert2.min.css
             </div>
         </div> --}}
         <div class="row mt-5">
-
+        
             @foreach ($users as $user)
                 <div style="margin-right: 100px" class="col-2 mt-5">
                     <img src="{{ asset('/storage' . '/' . $user['file-name']) }}" width="300px" height="300px">
                     <div>
                         {{-- <form action="{{url('user-delete'.'/'.$user['id'])}}" method="POST"> --}}
                         {{-- @csrf --}}
-                        <button onclick="confirmDelete('{{ url('user-delete' . '/' . $user['id']) }}')" type="submit"
+                        <button onclick="confirmDelete('{{ route('delete',['id'=> $user['id']] ) }}')" type="submit"
                             class="btn btn-sm btn-danger mt-2">Delete</button>
                         {{-- </form> --}}
-                        <a href="/user-edit{{ '/' . $user['id'] }}" class="btn btn-warning mt-2">Update</a>
+                        <a href="{{route('edit',$user['id'])}}" class="btn btn-warning mt-2">Update</a>
                     </div>
                 </div>
             @endforeach

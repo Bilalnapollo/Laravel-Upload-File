@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -9,21 +10,24 @@ class UserController extends Controller
 {
     function index(){
         $users = User::get();
+        $title = 'File Upload';
+        $url = 'image-store';
+        $val = "Upload";
         // echo $users;
-        return view('file-upload',compact('users'));
+        return view('file-upload',compact('users','title','url','val'));
     }
-    function store(Request $req){
+    function store(UserRequest $req){
         // echo "File Uploaded";
         //learn about validation request
-        $req->validate([
-            'photo'=> 'required|mimes:png,jpg,jpeg|max:5000' //add these validtors in validation request 
-        ]); 
+        // $req->validate([
+        //     'photo'=> 'required|mimes:png,jpg,jpeg|max:5000' //add these validtors in validation request 
+        // ]); 
         $file = $req->file('photo');
         $path = $file->store('image','public'); // specify the path where you are storing the image
         User::create([
             'file-name'=> $path
         ]);
-        return redirect('/user')->with('status','User Image Uploaded Successfully'); //use route name insted
+        return redirect()->route('home')->with('status','User Image Uploaded Successfully'); //use route name insted
     }
 
     function destroy($id){
@@ -34,11 +38,14 @@ class UserController extends Controller
         if(file_exists($image_path)){
             @unlink($image_path);
         }
-        return redirect('/user')->with('status','User Image Data deleted Successfully');
+        return redirect('/all-images')->with('status','Image deleted Successfully');
     }
     function edit($id){
         $user = User::find($id);
-        return view('file-update',compact('user')); //use the same view for both edit and add new record 
+        $title = 'File Update';
+        $url = "image-update'.'/'.$user->id ";
+        $val = "Update";
+        return view('file-update',compact('user','title','url','val')); //use the same view for both edit and add new record 
     }
     function update($id, Request $req){
        $user = User::find($id);
@@ -54,6 +61,6 @@ class UserController extends Controller
 
         
        }
-       return redirect('/user')->with('status','User Image Data updated Successfully');
+       return redirect()->route('home')->with('status','Image updated Successfully');
     }
 }

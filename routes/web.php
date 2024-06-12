@@ -7,8 +7,8 @@ use App\Http\Controllers\UserController;
 //     return view('file-upload');
 // });
 
-Route::get('/user',[UserController::class, 'index']);
-Route::post('/user-store',[UserController::class, 'store']);
-Route::get('/user-delete/{id}',[UserController::class, 'destroy']);
-Route::get('/user-edit/{id}',[UserController::class, 'edit']);
-Route::post('/user-update/{id}',[UserController::class, 'update']);
+Route::get('/all-images',[UserController::class, 'index'])->name('home');
+Route::post('/image-store',[UserController::class, 'store']);
+Route::get('/image-delete/{id}',[UserController::class, 'destroy'])->name('delete');
+Route::get('/image-edit/{id}',[UserController::class, 'edit'])->name('edit');
+Route::post('/image-update/{id}',[UserController::class, 'update'])->name('update');

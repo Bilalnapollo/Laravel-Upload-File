@@ -14,7 +14,7 @@
                 <img id="output" src="{{asset('/storage'.'/'.$user['file-name'])}}" alt="" width="300px" height="300px">
             </div>
         </div>
-        <form action="{{url('user-update'.'/'.$user['id'])}}" method="POST" enctype="multipart/form-data">
+        <form action="{{route('update', $user['id'])}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row mt-4">
                 <div class="col-12">

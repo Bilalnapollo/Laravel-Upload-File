@@ -10,4 +10,5 @@ class User extends Model
     use HasFactory;
 
     protected $guarded = []; // add fillables in model to make sure eloquent work smoothly 
+    protected $fillable = ['id','file-name'] ;
 }
